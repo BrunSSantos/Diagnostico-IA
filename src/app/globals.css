@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900
+        max-w-7xl 
+    }
+}
