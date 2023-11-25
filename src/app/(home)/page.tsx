@@ -24,7 +24,7 @@ export default function Home() {
             quaerat.
           </p>
           <button className="mt-10"></button>
-          <a href="C:\Users\norua\tgdiagnostico-ia\src\app\auth\page.tsx" className="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mt-10">Navegação</a>  
+          <a href="C:\Users\norua\tgdiagnostico-ia\src\app\auth\page.tsx'" className="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mt-10">Navegação</a>  
           
         </aside>
         <article>

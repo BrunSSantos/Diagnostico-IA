@@ -1,12 +1,12 @@
 
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
-import './globals.css'
+import '../globals.css'
 
 
 export const metadata: Metadata = {
   title: 'Diagnostico',
-  description: 'TG',
+  description: 'Home Page',
 }
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='m-auto 0 p-5'>{children}</body>
+      <body className='padrao-body'>{children}</body>
     </html>
   )
 }
