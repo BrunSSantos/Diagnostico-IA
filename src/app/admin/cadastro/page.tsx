@@ -1,28 +1,42 @@
-'use client';
+
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import FormCadastroUsuario from "@/components/FormCadastroUsuario";
 import Navbar from "@/components/NavBar";
+import SignOut from "@/components/SignOut";
+import { getServerSession } from "next-auth";
 import Head from "next/head";
 import Image from "next/image";
+import React from "react";
 
 
-export default function Cadastro(){
-    
+export default async function Cadastro() {
+  const session = await getServerSession(authOptions);
 
-    return(
+  return (
     <>
-    <div className="w-full flex flex-col min-h-screen">
 
-  {/* Navbar no topo */}
- 
-  <Navbar logoSrc="/img/cardiogram.png"/>
-  
+      {session && session.user?.email ? (
+        <>
+          <div className="w-full flex flex-col min-h-screen">
 
-  {/* Conteúdo centralizado no meio */}
-  <div className="flex-grow flex items-center justify-center">
-  <FormCadastroUsuario />
-  </div>
+            {/* Navbar no topo */}
 
-</div>
+            <Navbar logoSrc="/img/cardiogram.png" />
+
+
+            {/* Conteúdo centralizado no meio */}
+            <div className="flex-grow flex items-center justify-center">
+              <FormCadastroUsuario emailAdmin={session.user?.email} />
+            </div>
+
+          </div>
+        </>
+      ) : (
+        <>
+        <SignOut />
+        </>
+      )}
+
     </>
-    )
+  )
 }

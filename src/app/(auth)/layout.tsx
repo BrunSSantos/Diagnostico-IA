@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import '../globals.css'
+import Provider from '@/components/Provider'
 
 export const metadata: Metadata = {
   title: 'Login',
@@ -12,7 +13,9 @@ export default function AuthLayout({
   }) {
     return (
       <html lang="en">
-        <body className="auth-body">{children}</body>
+        <body className="auth-body">
+          <Provider>{children}</Provider>
+          </body>
       </html>
     )
   }

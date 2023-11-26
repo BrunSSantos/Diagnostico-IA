@@ -1,27 +1,42 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 import '../app/globals.css';
 
 interface MyComponentProps {
   value?: string | null;
   onChange?: (value: string | null) => void;
+  onChangeIndex?: (index: number) => void;
   options: string[];
+  selectedIndex?: number; // Adicionando a propriedade selectedIndex
 }
 
-
-
-const SelectDefault: React.FC<MyComponentProps> = ({ value, onChange, options }) => {
+const SelectDefault: React.FC<MyComponentProps> = ({
+  value,
+  onChange,
+  onChangeIndex,
+  options,
+  selectedIndex,
+}) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(value || null);
 
   useEffect(() => {
     setSelectedOption(value || null);
   }, [value]);
 
-  const handleOptionClick = (option: string) => {
+  useEffect(() => {
+    if (selectedIndex !== undefined && selectedIndex >= 0 && selectedIndex < options.length) {
+      setSelectedOption(options[selectedIndex]);
+    }
+  }, [selectedIndex, options]);
+
+  const handleOptionClick = (option: string, index: number) => {
     setSelectedOption(option);
 
     if (onChange) {
       onChange(option);
+    }
+
+    if (onChangeIndex) {
+      onChangeIndex(index); // Chama a função de retorno de chamada com o índice selecionado
     }
 
     handleDropdownClick();
@@ -49,8 +64,8 @@ const SelectDefault: React.FC<MyComponentProps> = ({ value, onChange, options })
         {options.map((option, index) => (
           <div
             key={index}
-            className='relative pt-1 text-lg pl-2'
-            onClick={() => handleOptionClick(option)}
+            className={`relative pt-1 text-lg pl-2 ${index === selectedIndex ? 'selected' : ''}`}
+            onClick={() => handleOptionClick(option, index)}
           >
             {option}
           </div>
@@ -61,4 +76,3 @@ const SelectDefault: React.FC<MyComponentProps> = ({ value, onChange, options })
 };
 
 export default SelectDefault;
-

@@ -28,6 +28,7 @@ model tb_cargo {
 
 model tb_diagnostico {
   tb_diagnostico_id                  Int                   @id @default(autoincrement())
+  tb_diagnostico_nomePaciente        String?               @db.VarChar(75)
   tb_diagnostico_dataHora            DateTime?             @db.Timestamp(0)
   tb_diagnostico_img                 String?               @db.VarChar(255)
   tb_diagnostico_desc                String?               @db.VarChar(2000)

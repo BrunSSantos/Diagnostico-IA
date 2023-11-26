@@ -78,4 +78,13 @@
         display: block;
     }
 
+     /* CSS SELECT*/
+     .fixed-button {
+        position: relative; /* ou absolute, dependendo do comportamento desejado */
+       left: 20%;/* ou qualquer valor desejado para ajustar a posição horizontal */
+        /* Adicione mais estilos conforme necessário */
+      }
+
+      
+
 }

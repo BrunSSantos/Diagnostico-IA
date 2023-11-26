@@ -6,9 +6,9 @@ import bcrypt from 'bcryptjs'
 export const cadastroUser = async (nome: string, email: string, registro: string,
   cargo: number, admin?: number, expedIni?: Date, expedFim?: Date) => {
   if (registro.trim() === '') {
-    const user = await prisma.tb_profissionalsaude.findUnique({
+    const user = await prisma.tb_administrador.findUnique({
       where: {
-        tb_profissionalSaude_email: email
+        tb_administrador_email: email
       }
     });
     if (user) {

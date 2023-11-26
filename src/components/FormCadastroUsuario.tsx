@@ -13,9 +13,26 @@ import dayjs from 'dayjs';
 import CargoModal from "./CargoModal";
 import { cadastroUser } from "@/app/actions/users/cadastroUsuario";
 import { listarCargo } from "@/app/actions/users/listarCargo";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { buscarIdAdmin } from "@/app/actions/users/buscarIdAdmin";
 
-const FormCadastroUsuario = () => {
+
+const FormCadastroUsuario = ({ emailAdmin }: { emailAdmin: string }) => {
+    const [nomeUsuario, setNomeUsuario] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [registro, setRegistro] = React.useState('');
+    const [cargo, setCargo] = React.useState<number | null>(null);
+    const [administrador, setAdministrador] = React.useState('');
+    const [message, setMessage] = React.useState('');
+    const [cargoOptions, setCargoOptions] = useState<string[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [inicioExpediente, setInicioExpediente] = useState<Date | null>(null);
+    const [fimExpediente, setFimExpediente] = useState<Date | null>(null);
+    const [checkboxChecked, setCheckboxChecked] = useState<boolean>(false);
+    const [selectedValue, setSelectedValue] = useState<string | null>(null);
+    const [admin, setAdmin] = React.useState<number | undefined>(undefined);
 
     const handleButtonClick = () => {
         setIsModalOpen(true);
@@ -26,56 +43,45 @@ const FormCadastroUsuario = () => {
     };
 
 
-    const [inicioExpediente, setInicioExpediente] = useState<Date | null>(null);
-    const [fimExpediente, setFimExpediente] = useState<Date | null>(null);
-
     const handleInicioExpedienteChange = (date: Date | null) => {
         if (date) {
             const formattedTime = dayjs(date).format('HH:mm');
-
-            // Faça o que quiser com a string formatada
+            
             console.log(formattedTime);
             setInicioExpediente(date);
         }
 
-        // Atualize o estado conforme necessário
+       
 
     };
     const handleFimExpedienteChange = (date: Date | null) => {
         if (date) {
             const formattedTime = dayjs(date).format('HH:mm');
 
-            // Faça o que quiser com a string formatada
+          
             console.log(formattedTime);
             setFimExpediente(date);
+            
         }
 
-        // Atualize o estado conforme necessário
+        
 
     };
 
-    const [checkboxChecked, setCheckboxChecked] = useState<boolean>(false);
+    
     const handleCheckboxChange = (isChecked: boolean) => {
         setCheckboxChecked(isChecked);
         console.log('O checkbox está selecionado?', isChecked);
     };
 
-    const [selectedValue, setSelectedValue] = useState<string | null>(null);
+    
     const handleChange = (value: string | null) => {
         console.log('Novo valor selecionado:', value);
         setSelectedValue(value);
     };
 
-    const [nomeUsuario, setNomeUsuario] = React.useState('')
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
-    const [registro, setRegistro] = React.useState('')
-    const [cargo, setCargo] = React.useState<number | ''>('');
-    const [administrador, setAdministrador] = React.useState('');
-    const [message, setMessage] = React.useState('')
-    const [admin, setAdmin] = React.useState<number | undefined>(undefined);
-    const [cargoOptions, setCargoOptions] = useState<string[]>([]);
 
+    
     useEffect(() => {
       const carregarOpcoesCargo = async () => {
         try {
@@ -88,23 +94,48 @@ const FormCadastroUsuario = () => {
   
       carregarOpcoesCargo();
     }, []);
-  
-      
+    
     const handleSubmit = async () => {
-        
-        console.log("Inicio do Expediente:", inicioExpediente);
-        console.log("Fim do Expediente:", fimExpediente);
-
-       
+        setAdministrador(emailAdmin);
+        //console.log("Inicio do Expediente:", inicioExpediente);
+        //console.log("Fim do Expediente:", fimExpediente);
+        const adminId = await buscarIdAdmin(administrador);
+        if (adminId  !== undefined) {
+            // Agora você pode usar adminId.tb_administrador_id sem problemas
+            const administradorId = adminId.tb_administrador_id;
+            console.log("deu certo o admin");
+            if(cargo !== null && inicioExpediente !== null && fimExpediente !== null) {
+                const mensagem = await cadastroUser(nomeUsuario, email, registro, cargo, 
+                    administradorId, inicioExpediente, fimExpediente);
+                    setMessage(mensagem);
+                    console.log(message);
+                    console.log(administradorId);
+                    
+            }
+            if(cargo !== null){
+                const mensagem = await cadastroUser(nomeUsuario, email, registro, cargo);
+                setMessage(mensagem);
+                console.log(message);
+                console.log(administradorId);
+            }
+          }else{
+            console.log("deu errado o admin");
+            console.log(administrador);
+          }
         
         console.log("Botão clicado!");
-        
           }
         
     const handleClick = () => {
         
         console.log('Botão clicado!');
     };
+
+    const handleChangeIndex = (index: number) => {
+        const idCargo = index + 1;
+        console.log('Índice do item selecionado:', idCargo);
+        setCargo(idCargo);
+      };
 
     return (
         <div className="relative flex justify-center items-center">
@@ -159,7 +190,7 @@ const FormCadastroUsuario = () => {
                     </LocalizationProvider>
                 </div>
                 <div className="mt-4 flex">
-                <SelectDefault value={selectedValue} onChange={handleChange} options={cargoOptions} />
+                <SelectDefault value={selectedValue} onChange={handleChange} onChangeIndex={handleChangeIndex} options={cargoOptions} />
 
                     <button onClick={handleButtonClick} className="bg-light-blue-900 mt-2 h-10 text-white p-2 rounded">
                         +Cargo
@@ -169,9 +200,12 @@ const FormCadastroUsuario = () => {
                 </div>
                 <div className="flex justify-center">
                     <AverageCommonButton label="Cadastrar" onClick={handleSubmit} />
+                    
                 </div>
             </div>
+            
         </div>
+        
     );
 }
 
