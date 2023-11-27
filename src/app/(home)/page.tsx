@@ -1,36 +1,36 @@
 import Head from "next/head";
-import {Sun} from 'lucide-react'
+import { Sun } from 'lucide-react'
 
 
 export default function Home() {
-  return(
-  <><header className="flex flex-row justify-between items-center">
-      <div className="flex-col leading-3 ">
-        <h1 className="font-extralight text-2xl text-slate-50 flex">Diagnostico por IA</h1>
+  return (
+    <> <nav className="flex justify-between items-center p-4 text-white">
+      <div className="flex items-center">
+        <img src="/img/cardiogram.png" alt="Logo" className="h-12 mr-4" />
       </div>
-      <ul className="justify-between">
-        <button className="px-4 mt-4"><Sun size={32} color="#ffffff"></Sun></button>
-        <button type="button" className="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Acessar</button>
-      </ul>
-    </header><main className="flex flex-row mt-24">
-        <aside>
-          <h1 className="text-slate-100 text-2xl">Boa noite</h1>
-          <p className="text-slate-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quaerat.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quaerat.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quaerat.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quaerat.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quaerat.
+      <div className="pr-12">
+      <a href="/login" className="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mt-10">Fazer Login</a>
+      </div>
+    </nav>
+      <div className="w-full h-4/5 flex flex-row mt-24">
+        <div className="pl-14 pt-14">
+          <h1 className="text-blue-gray-100 text-7xl pl-12">Boa noite</h1>
+          <h2 className="text-light-blue-700 pt-2 text-5xl pl-12 pr-48 " >Sou seu assistente de diagnósticos para todos os dias</h2>
+          <p className="text-blue-gray-100 pt-4 pl-14 pr-52">
+          A prática da medicina é uma arte, não um comércio, 
+          um chamado, não um negócio, um chamado em 
+          que seu coração será exercitado igualmente 
+          a sua cabeça
           </p>
-          <button className="mt-10"></button>
-          <a href="C:\Users\norua\tgdiagnostico-ia\src\app\auth\page.tsx'" className="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mt-10">Navegação</a>  
-          
-        </aside>
-        <article>
-          <img src="..\public\img\tesf-removebg-preview.png" className="w-96"></img>
-        </article>
-      </main></>
-  
+          <p className="text-blue-gray-100 pl-96">-William Osler</p>
+          <button className="mt-10 pl-14"></button>
+          <a href="/login" className="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mt-10">Acessar</a>
+
+        </div>
+        <div className="w-full h-3/5 pt-14 pl-36">
+          <img src="/img/pngwing.com.png" className="w-96"></img>
+        </div>
+      </div></>
+
   )
 }
