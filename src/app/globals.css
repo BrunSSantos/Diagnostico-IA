@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+    /* CSS BODY */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .padrao-body {
+        height: 100vh;
+        @apply bg-cord-fundo
+    }
+
+    .auth-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        @apply bg-cord-fundo
+    }
+    
+    /* CSS LOGIN */
+    .inputBox input:valid ~ span,
+    .inputBox input:focus ~ span{
+        @apply text-cor-texto-principal/80 -translate-x-2.5 -translate-y-8 text-xs
+    }
+
+    .inputBox i{
+        @apply absolute left-0 bottom-0 w-96 h-0.5 bg-cor-texto-principal/80 rounded pointer-events-none transition
+    }
+    .inputBox input:valid ~ i,
+    .inputBox input:focus ~ i{
+        @apply h-11 
+    }
+
+    /* CSS SELECT*/
+
+    .dropdown .options {
+        display: none;
+    }
+    .dropdown .options div {
+        @apply pt-3 pr-5
+    }
+
+    .dropdown .options div:hover {
+        @apply bg-cor-texto-principal text-white
+    }
+
+    .dropdown::before {
+        content: '';
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        z-index: 10000;
+        width: 10px;
+        height: 10px;
+        border: 2px solid #fff;
+        border-top: 2px solid #091B2A;
+        border-right: 2px solid #091B2A;
+        transform: rotate(-45deg);
+        transition: 0.5s;
+        pointer-events: none;
+        
+    }
+
+    .dropdown.active::before {
+        top: 22px;
+        transform: rotate(-225deg);
+    }
+    .dropdown.active .options {
+        display: block;
+    }
+
+     /* CSS SELECT*/
+     .fixed-button {
+        position: relative; /* ou absolute, dependendo do comportamento desejado */
+       left: 20%;/* ou qualquer valor desejado para ajustar a posição horizontal */
+        /* Adicione mais estilos conforme necessário */
+      }
+
+      
+
+}

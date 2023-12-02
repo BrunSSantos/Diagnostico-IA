@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tb_administrador {
+  tb_administrador_id      Int                    @id @default(autoincrement())
+  tb_administrador_nome    String?                @db.VarChar(75)
+  tb_administrador_email   String?                @db.VarChar(45) @unique
+  tb_administrador_senha   String?                @db.VarChar(255)
+  tb_administrador_cargoFK Int?
+  tb_cargo                 tb_cargo?              @relation(fields: [tb_administrador_cargoFK], references: [tb_cargo_id], onDelete: NoAction, onUpdate: NoAction, map: "tb_administrador_ibfk_1")
+  tb_profissionalsaude     tb_profissionalsaude[]
+
+  @@index([tb_administrador_cargoFK], map: "tb_administrador_cargoFK")
+}
+
+model tb_cargo {
+  tb_cargo_id          Int                    @id @default(autoincrement())
+  tb_cargo_nome        String?                @db.VarChar(50) @unique
+  tb_administrador     tb_administrador[]
+  tb_profissionalsaude tb_profissionalsaude[]
+}
+
+model tb_diagnostico {
+  tb_diagnostico_id                  Int                   @id @default(autoincrement())
+  tb_diagnostico_nomePaciente        String?               @db.VarChar(75)
+  tb_diagnostico_dataHora            DateTime?             @db.Timestamp(0)
+  tb_diagnostico_img                 String?               @db.VarChar(255)
+  tb_diagnostico_desc                String?               @db.VarChar(2000)
+  tb_diagnostico_accurancy           String?               @db.VarChar(5)
+  tb_diagnostico_profissionalSaudeFK Int?
+  tb_profissionalsaude               tb_profissionalsaude? @relation(fields: [tb_diagnostico_profissionalSaudeFK], references: [tb_profissionalSaude_id], onDelete: NoAction, onUpdate: NoAction, map: "tb_diagnostico_ibfk_1")
+
+  @@index([tb_diagnostico_profissionalSaudeFK], map: "tb_diagnostico_profissionalSaudeFK")
+}
+
+model tb_profissionalsaude {
+  tb_profissionalSaude_id               Int               @id @default(autoincrement())
+  tb_profissionalSaude_nome             String?           @db.VarChar(75)
+  tb_profissionalSaude_registro         String?           @db.VarChar(25)
+  tb_profissionalSaude_email            String?           @db.VarChar(45) @unique
+  tb_profissionalSaude_senha            String?           @db.VarChar(255)
+  tb_profissionalSaude_expedienteInicio DateTime?         @db.Time(0)
+  tb_profissionalSaude_expedienteFim    DateTime?         @db.Time(0)
+  tb_profissionalSaude_admFK            Int?
+  tb_profissionalSaude_cargoFK          Int?
+  tb_diagnostico                        tb_diagnostico[]
+  tb_administrador                      tb_administrador? @relation(fields: [tb_profissionalSaude_admFK], references: [tb_administrador_id], onDelete: NoAction, onUpdate: NoAction, map: "tb_profissionalsaude_ibfk_1")
+  tb_cargo                              tb_cargo?         @relation(fields: [tb_profissionalSaude_cargoFK], references: [tb_cargo_id], onDelete: NoAction, onUpdate: NoAction, map: "tb_profissionalsaude_ibfk_2")
+
+  @@index([tb_profissionalSaude_admFK], map: "tb_profissionalSaude_admFK")
+  @@index([tb_profissionalSaude_cargoFK], map: "tb_profissionalSaude_cargoFK")
+}
