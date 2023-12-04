@@ -32,6 +32,7 @@ model tb_diagnostico {
   tb_diagnostico_dataHora            DateTime?             @db.Timestamp(0)
   tb_diagnostico_img                 String?               @db.VarChar(255)
   tb_diagnostico_desc                String?               @db.VarChar(2000)
+  tb_diagnostico_resultado           String?               @db.VarChar(25)
   tb_diagnostico_accurancy           String?               @db.VarChar(5)
   tb_diagnostico_profissionalSaudeFK Int?
   tb_profissionalsaude               tb_profissionalsaude? @relation(fields: [tb_diagnostico_profissionalSaudeFK], references: [tb_profissionalSaude_id], onDelete: NoAction, onUpdate: NoAction, map: "tb_diagnostico_ibfk_1")

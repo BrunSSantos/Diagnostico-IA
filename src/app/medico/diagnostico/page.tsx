@@ -1,4 +1,3 @@
-'use client';
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import FormDiagnostico from "@/components/FormDiagnostico";
 import FormCadastroUsuario from "@/components/FormDiagnostico";

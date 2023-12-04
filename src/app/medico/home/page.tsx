@@ -1,4 +1,3 @@
-'use client';
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import AverageCommonButton from "@/components/AverageCommonButton";
 import FormCadastroUsuario from "@/components/FormCadastroUsuario";

@@ -12,7 +12,7 @@ const formatData = () =>{
 
 
 export const cadastroDiagnostico = async (img: string, nomePaciente: string, 
-    desc: string, acurrancy: string, profissionalSaudeFK: number) =>{
+    desc: string, resultado: string, acurrancy: string, profissionalSaudeFK: number) =>{
   
         try {
             if (profissionalSaudeFK == null){
@@ -26,22 +26,12 @@ export const cadastroDiagnostico = async (img: string, nomePaciente: string,
             await prisma.tb_diagnostico.create({
                 data: {
                     
+                    tb_diagnostico_nomePaciente: nomePaciente,
                     tb_diagnostico_img: img,
                     tb_diagnostico_desc: desc,
+                    tb_diagnostico_resultado: resultado,
                     tb_diagnostico_accurancy: acurrancy,
                     tb_diagnostico_profissionalSaudeFK: profissionalSaudeFK,
-                    tb_diagnostico_dataHora: formatData(),
-                    tb_diagnostico_nomePaciente: nomePaciente
-                    
-                    
-            
-                    
-                    
-                    
-    
-                    
-    
-    
                 }
             });
     
