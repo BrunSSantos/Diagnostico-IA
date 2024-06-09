@@ -1,4 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+
+## AI Code
+
+Google colab was used to create and train the AI.
+Read: https://colab.research.google.com/drive/1k_x1iYN9mGCF4XlxrJzundQlU1Khv9jU#scrollTo=1T4E9vV6enbe
+
+Databases used for training: 
+
+https://github.com/ieee8023/covid-chestxray-dataset
+https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
+
+The API code is present in the root of the project as "app.py".
 
 ## Getting Started
 
